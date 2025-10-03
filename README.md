@@ -31,7 +31,7 @@ To get a local copy up and running follow these simple steps.
 
 1.  Clone the repo
     ```sh
-    git clone https://github.com/your_username/FaceDetection.git
+    git clone https://github.com/hi-mod/face-detection.git
     ```
 2.  Open the project in Android Studio.
 3.  Build the project and run it on an Android device or emulator.
