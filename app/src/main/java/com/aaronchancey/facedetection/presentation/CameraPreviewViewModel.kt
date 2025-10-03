@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 class CameraPreviewViewModel : ViewModel() {
 
@@ -50,12 +51,10 @@ class CameraPreviewViewModel : ViewModel() {
     }
 
     @OptIn(ExperimentalGetImage::class)
-    private fun processImage(imageProxy: ImageProxy) {
-        imageProxy.image?.let { image ->
-            // println("Image available: $image, ${imageProxy.height}, ${imageProxy.width}")
+    private fun processImage(imageProxy: ImageProxy) = imageProxy.image?.let { image ->
+        viewModelScope.launch {
             faceDetection.process(InputImage.fromMediaImage(image, 90))
                 .addOnSuccessListener { faces ->
-                    // println("faces: $faces")
                     _state.update {
                         it.copy(
                             faces = faces,
@@ -66,7 +65,6 @@ class CameraPreviewViewModel : ViewModel() {
                 }
                 .addOnFailureListener { it.printStackTrace() }
                 .addOnCompleteListener {
-                    // println("complete")
                     imageProxy.close()
                 }
         }
