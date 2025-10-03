@@ -153,50 +153,6 @@ private fun CameraPreviewContent(
                     style = Stroke(width = 3f),
                 )
             }
-
-            /*// Get the transformation matrix from the PreviewView
-            // This matrix maps the coordinates from the analysis image to the view
-            // This is the core of the solution.
-            // It creates a transformation from the ImageAnalysis coordinate system
-            // to the PreviewView coordinate system.
-            val coordinateTransform = CoordinateTransform(imageAnalysis, preview)
-            val transformMatrix = Matrix()
-            coordinateTransform.transform(transformMatrix)
-
-            // The coordinates from ML Kit are for the source image.
-            // We need to know if the camera is using the front lens, as it requires mirroring the overlay.
-            val isFrontCamera = cameraController.cameraSelector == CameraSelector.DEFAULT_FRONT_CAMERA
-
-            faces.forEach { face ->
-                val box = face.boundingBox
-
-                // Create a float array of the bounding box corners
-                val points = floatArrayOf(
-                    box.left.toFloat(),
-                    box.top.toFloat(),
-                    box.right.toFloat(),
-                    box.bottom.toFloat(),
-                )
-
-                // Apply the transformation matrix to the points
-                transformMatrix.mapPoints(points)
-
-                // If using the front camera, the overlay needs to be mirrored horizontally
-                if (isFrontCamera) {
-                    val viewWidth = size.width
-                    // Flip the x-coordinates
-                    points[0] = viewWidth - points[2]
-                    points[2] = viewWidth - points[0]
-                }
-
-                // Draw the transformed bounding box
-                drawRect(
-                    color = Color.Green,
-                    topLeft = Offset(points[0], points[1]),
-                    size = Size(points[2] - points[0], points[3] - points[1]),
-                    style = Stroke(width = 3.dp.toPx()),
-                )
-            }*/
         }
     }
 }
